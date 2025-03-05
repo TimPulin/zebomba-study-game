@@ -1,0 +1,10 @@
+body {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+}
