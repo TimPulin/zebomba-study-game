@@ -1,4 +1,3 @@
-import './style.css';
 import { Application } from 'pixi.js';
 
 (async () => {
