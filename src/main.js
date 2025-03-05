@@ -1,15 +1,15 @@
 import { Application } from 'pixi.js';
+import { setup } from './setup.js';
+import { preload } from './preload.js';
+import { addSprite } from './add-sprite.js';
+import { renderBackground } from './render-background.js';
 
 (async () => {
   const app = new Application();
-  await app.init({
-    width: 980,
-    height: 630,
-    backgroundColor: '#149483',
-  });
+  await setup(app);
+  await preload(app);
+  await renderBackground(app);
+  await addSprite(app, 'avatar');
 
-  const root = document.getElementById('app');
-  if (root) {
-    root.appendChild(app.canvas);
-  }
+  // await game(app);
 })();
