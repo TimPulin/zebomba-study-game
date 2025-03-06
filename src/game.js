@@ -1,6 +1,6 @@
-import { addSprite } from './add-sprite.js';
+import { addSpriteToApp } from './add-sprite-to-app.js';
 
 export async function game(app) {
-  await addSprite(app, '/img/university.png');
-  await addSprite(app, '/img/avatar.png');
+  await addSpriteToApp(app, '/img/university.png');
+  await addSpriteToApp(app, '/img/avatar.png');
 }

@@ -1,7 +1,7 @@
-import { addSprite } from './add-sprite.js';
+import { addSpriteToApp } from './add-sprite-to-app.js';
 
 export async function renderBackground(app) {
-  await addSprite(app, 'map');
-  await addSprite(app, 'path');
-  await addSprite(app, 'pathPoints');
+  await addSpriteToApp(app, 'map');
+  await addSpriteToApp(app, 'path');
+  await addSpriteToApp(app, 'pathPoints');
 }
