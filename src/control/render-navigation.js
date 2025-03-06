@@ -1,32 +1,27 @@
-import { Assets, Container, Sprite } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js';
+import { renderFriendsContainer } from './render-friends-container.js';
+import { addSpriteToEnd } from '../utils/add-sprite-to-end.js';
+import { createButton } from '../utils/create-button.js';
 
 export async function renderNavigation(app) {
-  const assets = [
-    { alias: 'buttonChat', src: '/img/button-chat.png' },
-    { alias: 'buttonPost', src: '/img/button-post.png' },
-    { alias: 'buttonRating', src: '/img/button-rating.png' },
-    { alias: 'buttonUniversity', src: '/img/button-university.png' },
-    { alias: 'layoutFriendsBackground', src: '/img/layout-friends-background.png' },
-  ];
-  await Assets.load(assets);
-
   const navContainer = new Container();
   const paddingBottom = 18;
   const navHeight = 63;
   navContainer.height = navHeight;
-  navContainer.y = app.screen.height - (navHeight + paddingBottom);
-  app.stage.addChild(navContainer);
 
-  const friendsContainer = new Container();
-  const friendsBackgroundSprite = Sprite.from('layoutFriendsBackground');
-  friendsContainer.addChild(friendsBackgroundSprite);
-  addSpriteToEnd(navContainer, friendsContainer, 4);
+  const friendsContainer = renderFriendsContainer();
+
+  addSpriteToEnd(navContainer, friendsContainer, 0);
 
   function onClickButtonChat() {
     console.log('clicked');
   }
 
-  const buttonChat = createButton({ alias: 'buttonChat', coordinates: [0, 0], onClick: onClickButtonChat });
+  const buttonChat = createButton({
+    alias: 'buttonChat',
+    coordinates: [0, 0],
+    onClick: onClickButtonChat,
+  });
   addSpriteToEnd(navContainer, buttonChat, 3);
 
   function onClickButtonUniversity() {
@@ -58,31 +53,15 @@ export async function renderNavigation(app) {
   const buttonRating = createButton({
     alias: 'buttonRating',
     coordinates: [0, 0],
-    onClick: onClickButtonPost,
+    onClick: onClickButtonRating,
   });
   addSpriteToEnd(navContainer, buttonRating, 8);
-}
 
-function createButton({ alias, coordinates: [x, y], onClick }) {
-  const button = Sprite.from(alias);
-  button.x = x;
-  button.y = y;
+  const border = new Graphics();
+  border.lineStyle(10, 0xff0000); // Толщина 4px, цвет красный
+  border.drawRect(0, 0, navContainer.width, navContainer.height); // Рисуем прямоугольник
 
-  button.eventMode = 'static';
-  button.cursor = 'pointer';
-  button.on('pointerdown', onClick);
-
-  return button;
-}
-
-function addSpriteToEnd(container, sprite, padding = 0) {
-  const lastChild = container.children[container.children.length - 1];
-
-  if (lastChild) {
-    sprite.x = lastChild.x + lastChild.width + padding;
-  } else {
-    sprite.x = padding;
-  }
-
-  container.addChild(sprite);
+  navContainer.x = (app.screen.width - navContainer.width) / 2;
+  navContainer.y = app.screen.height - (navHeight + paddingBottom);
+  app.stage.addChild(navContainer);
 }
