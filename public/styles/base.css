@@ -4,6 +4,10 @@ body {
   font-weight: 400;
 }
 
+#app {
+  position: relative;
+}
+
 .container {
   max-width: 980px;
   margin: 0 auto;
