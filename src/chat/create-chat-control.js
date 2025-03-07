@@ -2,7 +2,8 @@ import { Container, Sprite } from 'pixi.js';
 import { createButton } from '../utils/create-button.js';
 import { addSpriteToEnd } from '../utils/add-sprite-to-end.js';
 
-export function renderFriendsContainer() {
+export function createChatControl() {
+  const chatContainer = new Container();
   const friendsContainer = new Container();
   const friendsContainerWidth = 536;
   const friendsContainerPaddingInline = 10;
@@ -29,7 +30,21 @@ export function renderFriendsContainer() {
   friendsContainer.addChild(buttonSlideRight);
   friendsContainer.addChild(slider);
 
-  return friendsContainer;
+  function onClickButtonChat() {
+    console.log('clicked');
+  }
+
+  const buttonChat = createButton({
+    alias: 'buttonChat',
+    coordinates: [0, 0],
+    onClick: onClickButtonChat,
+  });
+
+  addSpriteToEnd(chatContainer, friendsContainer);
+
+  addSpriteToEnd(chatContainer, buttonChat, 3);
+
+  return chatContainer;
 }
 
 function creatSlider() {
