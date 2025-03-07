@@ -10,5 +10,4 @@ import { renderNavigation } from './render-navigation.js';
   await preload(app);
   await renderBackground(app);
   await renderNavigation(app);
-  // await game(app);
 })();
