@@ -2,7 +2,7 @@ import { Container, Graphics, Sprite } from 'pixi.js';
 import { createButton } from '../utils/create-button.js';
 import { addSpriteToEnd } from '../utils/add-sprite-to-end.js';
 
-export function createChatControl(app) {
+export function createChatControl() {
   const chatContainer = new Container();
   const friendsContainer = new Container();
   const friendsContainerWidth = 536;
@@ -12,7 +12,7 @@ export function createChatControl(app) {
   const friendsBackgroundSprite = Sprite.from('layoutFriendsBackground');
   friendsContainer.addChild(friendsBackgroundSprite);
 
-  const { slider, slideRight, slideLeft } = creatSlider(app);
+  const { slider, slideRight, slideLeft } = creatSlider();
   slider.x = 32;
   slider.y = 6.5;
   const buttonY = Math.floor(friendsContainer.height / 2);
@@ -35,18 +35,14 @@ export function createChatControl(app) {
     console.log('clicked');
   }
 
-  const buttonChat = createButton({
-    alias: 'buttonChat',
-    coordinates: [0, 0],
-    onClick: onClickButtonChat,
-  });
+  const buttonChat = createButton('buttonChat');
 
   chatContainer.addChild(friendsContainer, buttonChat);
   buttonChat.x = 539;
   return chatContainer;
 }
 
-function creatSlider(app) {
+function creatSlider() {
   const sliderWidth = 472;
   const sliderHeight = 50;
 
@@ -59,20 +55,18 @@ function creatSlider(app) {
 
   const itemsContainer = new Container();
   slider.addChild(itemsContainer);
-  // itemsContainer.x = 10;
 
   const buttonAddFriend = createButtonAddFriend();
   itemsContainer.addChild(buttonAddFriend);
 
   for (let i = 0; i < 5; i++) {
-    const button = createButton({ alias: 'buttonBrown', coordinates: [0, 0], onClick });
+    const button = createButton('buttonBrown');
     addFriendIcon(button);
     addSpriteToEnd(itemsContainer, button, 10);
-    console.log(button.width, button.height);
   }
 
   for (let i = 0; i < 4; i++) {
-    const button = createButton({ alias: 'buttonBrown', coordinates: [0, 0], onClick });
+    const button = createButton('buttonBrown');
     addSpriteToEnd(itemsContainer, button, 10);
   }
 
@@ -99,7 +93,7 @@ function creatSlider(app) {
 }
 
 function createButtonAddFriend() {
-  const button = createButton({ alias: 'buttonBrown', coordinates: [0, 0], onClick });
+  const button = createButton('buttonBrown');
   addFriendIcon(button);
   const spritePlus = Sprite.from('buttonPlus');
   spritePlus.x = button.width - 15;
@@ -121,31 +115,19 @@ function addFriendIcon(element) {
 }
 
 function createButtonSlideLeft(x, y) {
-  const button = createButton({
-    alias: 'arrowLeft',
-    coordinates: [x, y],
-    onClick,
-  });
+  const button = createButton('arrowLeft');
   button.anchor.set(0, 0.5);
 
-  function onClick() {
-    console.log('onClick');
-  }
-
+  button.x = x;
+  button.y = y;
   return button;
 }
 
 function createButtonSlideRight(x, y) {
-  const button = createButton({
-    alias: 'arrowRight',
-    coordinates: [x, y],
-    onClick,
-  });
+  const button = createButton('arrowRight');
   button.anchor.set(1, 0.5);
-
-  function onClick() {
-    console.log('onClick');
-  }
+  button.x = x;
+  button.y = y;
 
   return button;
 }
