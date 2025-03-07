@@ -10,7 +10,7 @@ export async function renderNavigation(app) {
   const navHeight = 63;
   navContainer.height = navHeight;
 
-  const chatControl = createChatControl(app);
+  const chatControl = createChatControl();
 
   addSpriteToEnd(navContainer, chatControl, 0);
 
@@ -25,22 +25,14 @@ export async function renderNavigation(app) {
     console.log('clicked');
   }
 
-  const buttonPost = createButton({
-    alias: 'buttonPost',
-    coordinates: [0, 0],
-    onClick: onClickButtonPost,
-  });
+  const buttonPost = createButton('buttonPost');
   addSpriteToEnd(navContainer, buttonPost, 8);
 
   function onClickButtonRating() {
     console.log('clicked');
   }
 
-  const buttonRating = createButton({
-    alias: 'buttonRating',
-    coordinates: [0, 0],
-    onClick: onClickButtonRating,
-  });
+  const buttonRating = createButton('buttonRating');
   addSpriteToEnd(navContainer, buttonRating, 8);
 
   navContainer.x = 10;

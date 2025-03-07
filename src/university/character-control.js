@@ -5,13 +5,10 @@ import { Character } from '../Character.js';
 export function characterControl(app) {
   const character = createCharacter(app, 'avatar', studyRoute);
 
-  const button = createButton({
-    alias: 'buttonUniversity',
-    coordinates: [0, 0],
-    onClick: () => {
-      animateRoute(app, character.currentRoute, character.sprite);
-      character.goToNextPoint();
-    },
+  const button = createButton('buttonUniversity');
+  button.on('pointerdown', () => {
+    animateRoute(app, character.currentRoute, character.sprite);
+    character.goToNextPoint();
   });
 
   app.stage.addChild(button);
