@@ -1,3 +1,4 @@
+// todo сделать анимацию прокрутки slider
 import { Container, Graphics, Sprite } from 'pixi.js';
 import { createButton } from '../utils/create-button.js';
 import { addSpriteToEnd } from '../utils/add-sprite-to-end.js';
@@ -30,10 +31,6 @@ export function createChatControl() {
   friendsContainer.addChild(buttonSlideLeft);
   friendsContainer.addChild(buttonSlideRight);
   friendsContainer.addChild(slider);
-
-  function onClickButtonChat() {
-    console.log('clicked');
-  }
 
   const buttonChat = createButton('buttonChat');
 
@@ -70,10 +67,6 @@ function creatSlider() {
     addSpriteToEnd(itemsContainer, button, 10);
   }
 
-  function onClick() {
-    console.log('clicked');
-  }
-
   let currentX = 0;
   const minX = -itemsContainer.width + slider.width;
   const maxX = 0;
@@ -99,8 +92,6 @@ function createButtonAddFriend() {
   spritePlus.x = button.width - 15;
   spritePlus.y = -5;
   button.addChild(spritePlus);
-
-  function onClick() {}
 
   return button;
 }

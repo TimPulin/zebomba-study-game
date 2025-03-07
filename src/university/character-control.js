@@ -1,6 +1,8 @@
 import { createButton } from '../utils/create-button.js';
 import { Sprite } from 'pixi.js';
-import { Character } from '../Character.js';
+import { Character } from './Character.js';
+
+import { studyRoute } from '../data/study-route.js';
 
 export function characterControl(app) {
   const character = createCharacter(app, 'avatar', studyRoute);
@@ -57,33 +59,6 @@ function animateCharacter(app, route, characterSprite, speed, index, onComplete)
 
   app.ticker.add(updateCharacter);
 }
-
-const studyRoute = [
-  {
-    name: 'Первый курс',
-    route: [
-      { x: 445, y: 505 },
-      { x: 415, y: 489 },
-      { x: 388, y: 462 },
-      { x: 350, y: 475 },
-      { x: 275, y: 517 },
-      { x: 190, y: 536 },
-      { x: 111, y: 508 },
-      { x: 123, y: 444 },
-    ],
-  },
-  {
-    name: 'Аудитория',
-    route: [
-      { x: 123, y: 444 },
-      { x: 141, y: 389 },
-      { x: 214, y: 351 },
-      { x: 177, y: 279 },
-      { x: 139, y: 227 },
-      { x: 203, y: 197 },
-    ],
-  },
-];
 
 function createCharacterSprite(alias) {
   const sprite = Sprite.from(alias);
