@@ -1,21 +1,18 @@
 import { Container, Graphics, Sprite, Text } from 'pixi.js';
 import { createButton } from '../utils/create-button.js';
-import { rating } from '../data/rating.js';
 
 export function renderRatingLayout(screenWidth, screenHeight) {
   const outerLayout = Sprite.from('outerLayoutRating');
-
   outerLayout.x = (screenWidth - outerLayout.width) / 2;
   outerLayout.y = (screenHeight - outerLayout.width) / 2;
 
-  const innerLayout = createInnerLayout(outerLayout);
-
   const title = createTitle(outerLayout);
   const buttonClose = createButtonClose(outerLayout);
+  const innerLayout = createInnerLayout(outerLayout);
 
-  outerLayout.addChild(title, buttonClose, innerLayout);
+  outerLayout.addChild(title, buttonClose, innerLayout.layout);
 
-  return outerLayout;
+  return { outerLayout, innerLayout };
 }
 
 function createButtonClose(outerLayout) {
@@ -38,11 +35,14 @@ function createInnerLayout(outerLayout) {
   layout.y = 95;
 
   const titleTable = createTitleTable(layout);
-  const rect = createTableLayout(layout);
+  const tableLayout = createTableLayout(layout);
 
-  layout.addChild(titleTable, rect);
+  layout.addChild(titleTable, tableLayout.container);
 
-  return layout;
+  return {
+    layout,
+    tableLayout,
+  };
 }
 
 function createTitleTable(layout) {
@@ -67,14 +67,15 @@ function createTableLayout(layout) {
   wrapper.mask = mask;
 
   const rowContainer = new Container();
+  container.eventMode = 'static';
+  container.cursor = 'pointer';
+
   wrapper.addChild(rowContainer);
 
-  renderRows(rating.rating, rowContainer);
-
-  return container;
+  return { container, wrapper, rowContainer };
 }
 
-function renderRows(rating, container) {
+export function renderRows(rating, rowContainer) {
   rating.forEach((item, index) => {
     const place = String(index + 1);
     const name = `${item.lastName} ${item.name}`;
@@ -82,7 +83,7 @@ function renderRows(rating, container) {
 
     const row = createRow(place, name, points);
     row.y = (row.height + 5) * index;
-    container.addChild(row);
+    rowContainer.addChild(row);
   });
 }
 
@@ -110,17 +111,3 @@ function createText(string) {
   text.y = 4;
   return text;
 }
-
-// let currentY = 0;
-// const minY = wrapper.height - rowContainer.height;
-// const maxY = 0;
-// const step = 33;
-
-// function scrollUp() {
-//   currentY = Math.min(currentY - step, minY);
-//   rowContainer.y = currentY;
-// }
-//
-// container.eventMode = 'static';
-// container.cursor = 'pointer';
-// container.on('pointerdown', scrollUp);

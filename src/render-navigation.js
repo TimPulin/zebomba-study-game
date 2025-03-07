@@ -23,5 +23,5 @@ export async function renderNavigation(app) {
 
   navContainer.x = 10;
   navContainer.y = 549;
-  app.stage.addChild(navContainer, ratingLayout);
+  app.stage.addChild(navContainer, ratingLayout.outerLayout);
 }
