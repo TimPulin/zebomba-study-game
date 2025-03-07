@@ -10,7 +10,7 @@ export async function renderNavigation(app) {
   const navHeight = 63;
   navContainer.height = navHeight;
 
-  const chatControl = createChatControl();
+  const chatControl = createChatControl(app);
 
   addSpriteToEnd(navContainer, chatControl, 0);
 
@@ -43,7 +43,7 @@ export async function renderNavigation(app) {
   });
   addSpriteToEnd(navContainer, buttonRating, 8);
 
-  navContainer.x = (app.screen.width - navContainer.width) / 2;
-  navContainer.y = app.screen.height - (navHeight + paddingBottom);
+  navContainer.x = 10;
+  navContainer.y = 549;
   app.stage.addChild(navContainer);
 }
