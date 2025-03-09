@@ -33,14 +33,14 @@ export function createRatingControl({ body, app, layout, buttonCall }, rating) {
 
 function openRating(body, app, layout, heightScreen) {
   const targetPosition = (heightScreen - layout.height) / 2;
-  toggleLockScroll(body);
   scrollAnimation(app, layout, targetPosition, 10);
+  toggleLockScroll(body);
 }
 
 function closeRating(body, app, layout) {
   const targetPosition = -layout.height;
-  toggleLockScroll(body);
   scrollAnimation(app, layout, targetPosition, 10);
+  toggleLockScroll(body);
 }
 
 function toggleLockScroll(element) {

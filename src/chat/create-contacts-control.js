@@ -1,16 +1,14 @@
-export function createContactsControl({
-  maskedLayout,
-  slidingLayout,
-  buttonSlideLeft,
-  buttonSlideRight,
-}) {
-  const { slideLeft, slideRight } = slide(maskedLayout, slidingLayout);
+import { slideAnimation } from '../utils/slide-animation.js';
+
+export function createContactsControl({ app, layout }) {
+  const { maskedLayout, slidingLayout, buttonSlideLeft, buttonSlideRight } = layout;
+  const { slideLeft, slideRight } = slide(app, maskedLayout, slidingLayout);
 
   buttonSlideRight.on('pointerdown', slideRight);
   buttonSlideLeft.on('pointerdown', slideLeft);
 }
 
-function slide(maskedLayout, slidingLayout) {
+function slide(app, maskedLayout, slidingLayout) {
   let currentX = 0;
   const minX = -slidingLayout.width + maskedLayout.width;
   const maxX = 0;
@@ -18,12 +16,12 @@ function slide(maskedLayout, slidingLayout) {
 
   function slideLeft() {
     currentX = Math.max(currentX - step, minX);
-    slidingLayout.x = currentX;
+    slideAnimation(app, slidingLayout, currentX, 10);
   }
 
   function slideRight() {
     currentX = Math.min(currentX + step, maxX);
-    slidingLayout.x = currentX;
+    slideAnimation(app, slidingLayout, currentX, 10);
   }
 
   return { slideLeft, slideRight };
