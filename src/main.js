@@ -27,7 +27,13 @@ import { getFriends, getRating, getStudyRoute } from './connect/get-data.js';
 
   const ratingLayout = createRatingLayout(app);
   const buttonCallRating = createButton('buttonRating');
-  createRatingControl({ body, app, layout: ratingLayout, buttonCall: buttonCallRating }, rating);
+  createRatingControl({
+    body,
+    app,
+    layout: ratingLayout,
+    buttonCall: buttonCallRating,
+    data: { rating, friends },
+  });
 
   await renderNavigation({ app, chatLayout: chatLayout.outerLayout, buttonCallRating });
 

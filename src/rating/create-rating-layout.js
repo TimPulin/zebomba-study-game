@@ -73,38 +73,50 @@ function createTableLayout(layout) {
   return { container, maskedContainer, scrollingContainer };
 }
 
-export function renderRows(rating, rowContainer) {
+export function renderRows(rating, friendsIdList, rowContainer) {
+  console.log(friendsIdList);
   rating.forEach((item, index) => {
+    console.log(item.id);
     const place = String(index + 1);
     const name = `${item.lastName} ${item.name}`;
     const points = String(item.points);
+    const currentColor = getFriendColor(isFriend(item.id, friendsIdList));
 
-    const row = createRow(place, name, points);
+    const row = createRow(place, name, points, currentColor);
     row.y = (row.height + 5) * index;
     rowContainer.addChild(row);
   });
 }
 
-function createRow(place, name, points) {
+function getFriendColor(isFriend) {
+  return isFriend ? 0xffa500 : 0xffffff;
+}
+
+function isFriend(playerId, friendsIdList) {
+  console.log(friendsIdList.includes(playerId));
+  return friendsIdList.includes(playerId);
+}
+
+function createRow(place, name, points, color = 0xffffff) {
   const container = new Container();
   const sprite = Sprite.from('blueBackground');
-  const placeText = createText(place);
+  const placeText = createText(place, color);
   placeText.x = 30;
 
-  const nameText = createText(name);
+  const nameText = createText(name, color);
   nameText.x = 100;
 
-  const pointsText = createText(points);
+  const pointsText = createText(points, color);
   pointsText.x = 330;
 
   container.addChild(sprite, placeText, nameText, pointsText);
   return container;
 }
 
-function createText(string) {
+function createText(string, color = 0xffffff) {
   const text = new Text(string, {
     fontSize: 18,
-    fill: 0xffffff,
+    fill: color,
   });
   text.y = 4;
   return text;
