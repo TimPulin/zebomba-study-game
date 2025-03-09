@@ -8,6 +8,7 @@ import { createRatingControl } from './rating/create-rating-control.js';
 import { createButton } from './utils/create-button.js';
 import { createContactLayout } from './chat/create-contact-layout.js';
 import { createContactsControl } from './chat/create-contacts-control.js';
+import { getFriends, getRating, getStudyRoute } from './connect/get-data.js';
 
 (async () => {
   const body = document.querySelector('body');
@@ -17,12 +18,16 @@ import { createContactsControl } from './chat/create-contacts-control.js';
   await preload(app);
   await renderBackground(app);
 
+  const friends = getFriends();
+  const rating = getRating();
+  const studyRoute = getStudyRoute();
+
   const chatLayout = createContactLayout();
   createContactsControl(chatLayout.contactList);
 
   const ratingLayout = createRatingLayout(app);
   const buttonCallRating = createButton('buttonRating');
-  createRatingControl(app, ratingLayout, buttonCallRating);
+  createRatingControl({ body, app, layout: ratingLayout, buttonCall: buttonCallRating }, rating);
 
   await renderNavigation({ app, chatLayout: chatLayout.outerLayout, buttonCallRating });
 
