@@ -1,14 +1,14 @@
 import { renderRows } from './create-rating-layout.js';
-import { rating } from '../data/rating.js';
+
 import { scrollAnimation } from '../utils/scroll-animation.js';
 
-export function createRatingControl(app, layout, buttonCall) {
+export function createRatingControl({ body, app, layout, buttonCall }, rating) {
   const WIDTH_APP_SCREEN = app.screen.width;
   const HEIGHT_APP_SCREEN = app.screen.height;
 
   const { outerLayout, innerLayout, buttonClose } = layout;
 
-  renderRows(rating.rating, innerLayout.tableLayout.scrollingContainer);
+  renderRows(rating, innerLayout.tableLayout.scrollingContainer);
 
   const scroller = scrollTable(
     app,
@@ -23,22 +23,28 @@ export function createRatingControl(app, layout, buttonCall) {
   innerLayout.tableLayout.container.on('wheel', scroller);
 
   buttonCall.on('pointerdown', () => {
-    openRating(app, outerLayout, HEIGHT_APP_SCREEN);
+    openRating(body, app, outerLayout, HEIGHT_APP_SCREEN);
   });
 
   buttonClose.on('pointerdown', () => {
-    closeRating(app, outerLayout);
+    closeRating(body, app, outerLayout);
   });
 }
 
-function openRating(app, layout, heightScreen) {
+function openRating(body, app, layout, heightScreen) {
   const targetPosition = (heightScreen - layout.height) / 2;
+  toggleLockScroll(body);
   scrollAnimation(app, layout, targetPosition, 10);
 }
 
-function closeRating(app, layout) {
+function closeRating(body, app, layout) {
   const targetPosition = -layout.height;
+  toggleLockScroll(body);
   scrollAnimation(app, layout, targetPosition, 10);
+}
+
+function toggleLockScroll(element) {
+  element.classList.toggle('lock-scroll');
 }
 
 function closeRatingOnStart(layout) {
