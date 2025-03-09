@@ -23,7 +23,7 @@ import { getFriends, getRating, getStudyRoute } from './connect/get-data.js';
   const studyRoute = getStudyRoute();
 
   const chatLayout = createContactLayout();
-  createContactsControl({ app, layout: chatLayout.contactList });
+  createContactsControl({ app, layout: chatLayout.contactList, data: { friends } });
 
   const ratingLayout = createRatingLayout(app);
   const buttonCallRating = createButton('buttonRating');
