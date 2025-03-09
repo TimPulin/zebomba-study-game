@@ -2,13 +2,15 @@ import { renderRows } from './create-rating-layout.js';
 
 import { scrollAnimation } from '../utils/scroll-animation.js';
 
-export function createRatingControl({ body, app, layout, buttonCall }, rating) {
+export function createRatingControl({ body, app, layout, buttonCall, data }) {
   const WIDTH_APP_SCREEN = app.screen.width;
   const HEIGHT_APP_SCREEN = app.screen.height;
 
   const { outerLayout, innerLayout, buttonClose } = layout;
+  const { rating, friends } = data;
+  const friendsIdList = friends.map((friend) => friend.id);
 
-  renderRows(rating, innerLayout.tableLayout.scrollingContainer);
+  renderRows(rating, friendsIdList, innerLayout.tableLayout.scrollingContainer);
 
   const scroller = scrollTable(
     app,

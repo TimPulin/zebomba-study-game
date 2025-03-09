@@ -2,6 +2,7 @@ import { slideAnimation } from '../utils/slide-animation.js';
 
 export function createContactsControl({ app, layout }) {
   const { maskedLayout, slidingLayout, buttonSlideLeft, buttonSlideRight } = layout;
+
   const { slideLeft, slideRight } = slide(app, maskedLayout, slidingLayout);
 
   buttonSlideRight.on('pointerdown', slideRight);
