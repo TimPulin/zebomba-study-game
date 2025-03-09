@@ -74,9 +74,7 @@ function createTableLayout(layout) {
 }
 
 export function renderRows(rating, friendsIdList, rowContainer) {
-  console.log(friendsIdList);
   rating.forEach((item, index) => {
-    console.log(item.id);
     const place = String(index + 1);
     const name = `${item.lastName} ${item.name}`;
     const points = String(item.points);
