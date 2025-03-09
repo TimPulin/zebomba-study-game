@@ -1,10 +1,8 @@
 import { Container, Graphics, Sprite, Text } from 'pixi.js';
 import { createButton } from '../utils/create-button.js';
 
-export function renderRatingLayout(screenWidth, screenHeight) {
+export function createRatingLayout() {
   const outerLayout = Sprite.from('outerLayoutRating');
-  outerLayout.x = (screenWidth - outerLayout.width) / 2;
-  outerLayout.y = (screenHeight - outerLayout.width) / 2;
 
   const title = createTitle(outerLayout);
   const buttonClose = createButtonClose(outerLayout);
@@ -12,7 +10,7 @@ export function renderRatingLayout(screenWidth, screenHeight) {
 
   outerLayout.addChild(title, buttonClose, innerLayout.layout);
 
-  return { outerLayout, innerLayout };
+  return { outerLayout, innerLayout, buttonClose };
 }
 
 function createButtonClose(outerLayout) {
@@ -59,20 +57,20 @@ function createTableLayout(layout) {
   container.x = PADDING;
   container.y = 65;
 
-  const wrapper = new Container();
-  container.addChild(wrapper);
+  const maskedContainer = new Container();
+  container.addChild(maskedContainer);
 
   const mask = new Graphics().rect(0, 0, layout.width - PADDING * 2, 224).fill(0xffffff);
-  wrapper.addChild(mask);
-  wrapper.mask = mask;
+  maskedContainer.addChild(mask);
+  maskedContainer.mask = mask;
 
-  const rowContainer = new Container();
+  const scrollingContainer = new Container();
   container.eventMode = 'static';
   container.cursor = 'pointer';
 
-  wrapper.addChild(rowContainer);
+  maskedContainer.addChild(scrollingContainer);
 
-  return { container, wrapper, rowContainer };
+  return { container, maskedContainer, scrollingContainer };
 }
 
 export function renderRows(rating, rowContainer) {
