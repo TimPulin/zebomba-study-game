@@ -1,10 +1,13 @@
 import { slideAnimation } from '../utils/slide-animation.js';
+import { createSlots } from './create-contacts-list-layout.js';
 
-export function createContactsControl({ app, layout }) {
+export function createContactsControl({ app, layout, data }) {
   const { maskedLayout, slidingLayout, buttonSlideLeft, buttonSlideRight } = layout;
+  const { friends } = data;
+  
+  createSlots(friends, slidingLayout);
 
   const { slideLeft, slideRight } = slide(app, maskedLayout, slidingLayout);
-
   buttonSlideRight.on('pointerdown', slideRight);
   buttonSlideLeft.on('pointerdown', slideLeft);
 }

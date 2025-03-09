@@ -22,6 +22,9 @@ export function createContactsListLayout() {
     buttonY,
   );
 
+  const buttonAddFriend = createButtonAddFriend();
+  slidingLayout.addChild(buttonAddFriend);
+
   outerContainer.addChild(buttonSlideLeft);
   outerContainer.addChild(buttonSlideRight);
   outerContainer.addChild(maskedLayout);
@@ -57,29 +60,34 @@ function creatSliderLayout() {
   const mask = new Graphics().rect(0, 0, sliderWidth, sliderHeight).fill(0xffffff);
 
   const maskedLayout = new Container();
-
   maskedLayout.addChild(mask);
   maskedLayout.mask = mask;
 
   const slidingLayout = new Container();
   maskedLayout.addChild(slidingLayout);
 
-  const buttonAddFriend = createButtonAddFriend();
-  slidingLayout.addChild(buttonAddFriend);
-
-  createSlots(slidingLayout);
-
   return { maskedLayout, slidingLayout };
 }
 
-export function createSlots(layout) {
-  for (let i = 0; i < 5; i++) {
+export function createSlots(contactList, layout) {
+  const SLOTS_AMOUNT_FOR_DEMONSTRATION = 8;
+  const SLOTS_AMOUNT = 7;
+
+  contactList.forEach((contact) => {
     const button = createButton('buttonBrown');
     addFriendIcon(button);
     addSpriteToEnd(layout, button, 10);
+  });
+  console.log(contactList.length < SLOTS_AMOUNT_FOR_DEMONSTRATION);
+  if (contactList.length < SLOTS_AMOUNT_FOR_DEMONSTRATION) {
+    const amountEmptySlots = SLOTS_AMOUNT_FOR_DEMONSTRATION - contactList.length;
+    renderEmptySlots(layout, amountEmptySlots);
   }
+}
 
-  for (let i = 0; i < 4; i++) {
+function renderEmptySlots(layout, amountSlots) {
+  console.log(amountSlots);
+  for (let i = 0; i < amountSlots; i++) {
     const button = createEmptySlot();
     addSpriteToEnd(layout, button, 10);
   }
@@ -106,6 +114,6 @@ function addFriendIcon(element) {
 }
 
 function createEmptySlot() {
-  const slot = Sprite.from('buttonBrown');
+  const slot = createButton('buttonBrown');
   return slot;
 }

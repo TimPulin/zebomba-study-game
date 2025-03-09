@@ -91,7 +91,6 @@ function getFriendColor(isFriend) {
 }
 
 function isFriend(playerId, friendsIdList) {
-  console.log(friendsIdList.includes(playerId));
   return friendsIdList.includes(playerId);
 }
 
