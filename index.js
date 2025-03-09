@@ -745,7 +745,7 @@
   		//
   		{
   		  module.exports = EventEmitter;
-  		} 
+  		}
   	} (eventemitter3));
   	return eventemitter3.exports;
   }
@@ -9592,7 +9592,7 @@ Deprecated since v${version}`);
     if (isFragment) {
       src = src.replace("out vec4 finalColor;", "");
       return `
-        
+
         #ifdef GL_ES // This checks if it is WebGL1
         #define in varying
         #define finalColor gl_FragColor
@@ -9602,7 +9602,7 @@ Deprecated since v${version}`);
         `;
     }
     return `
-        
+
         #ifdef GL_ES // This checks if it is WebGL1
         #define in attribute
         #define out varying
@@ -14566,7 +14566,7 @@ ${parts.join("\n")}
         var uv = aUV;
 
         {{start}}
-        
+
         vColor = vec4<f32>(1., 1., 1., 1.);
 
         {{main}}
@@ -14576,7 +14576,7 @@ ${parts.join("\n")}
         var modelViewProjectionMatrix = globalUniforms.uProjectionMatrix * worldTransformMatrix * modelMatrix;
 
         vPosition =  vec4<f32>((modelViewProjectionMatrix *  vec3<f32>(position, 1.0)).xy, 0.0, 1.0);
-       
+
         vColor *= globalUniforms.uWorldColorAlpha;
 
         {{end}}
@@ -14590,20 +14590,20 @@ ${parts.join("\n")}
     `
     @in vUV : vec2<f32>;
     @in vColor : vec4<f32>;
-   
+
     {{header}}
 
     @fragment
     fn main(
         {{in}}
       ) -> @location(0) vec4<f32> {
-        
+
         {{start}}
 
         var outColor:vec4<f32>;
-      
+
         {{main}}
-        
+
         var finalColor:vec4<f32> = outColor * vColor;
 
         {{end}}
@@ -14633,15 +14633,15 @@ ${parts.join("\n")}
           );
         vec2 position = aPosition;
         vec2 uv = aUV;
-        
+
         {{start}}
-        
+
         vColor = vec4(1.);
-        
+
         {{main}}
-        
+
         vUV = uv;
-        
+
         mat3 modelViewProjectionMatrix = uProjectionMatrix * worldTransformMatrix * modelMatrix;
 
         gl_Position = vec4((modelViewProjectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);
@@ -14655,7 +14655,7 @@ ${parts.join("\n")}
   const fragmentGlTemplate = (
     /* glsl */
     `
-   
+
     in vec4 vColor;
     in vec2 vUV;
 
@@ -14664,15 +14664,15 @@ ${parts.join("\n")}
     {{header}}
 
     void main(void) {
-        
+
         {{start}}
 
         vec4 outColor;
-      
+
         {{main}}
-        
+
         finalColor = outColor * vColor;
-        
+
         {{end}}
     }
 `
@@ -14914,7 +14914,7 @@ ${parts.join("\n")}
       header: (
         /* wgsl */
         `
-            fn roundPixels(position: vec2<f32>, targetSize: vec2<f32>) -> vec2<f32> 
+            fn roundPixels(position: vec2<f32>, targetSize: vec2<f32>) -> vec2<f32>
             {
                 return (floor(((position * 0.5 + 0.5) * targetSize) + 0.5) / targetSize) * 2.0 - 1.0;
             }
@@ -14927,9 +14927,9 @@ ${parts.join("\n")}
     vertex: {
       header: (
         /* glsl */
-        `   
+        `
             vec2 roundPixels(vec2 position, vec2 targetSize)
-            {       
+            {
                 return (floor(((position * 0.5 + 0.5) * targetSize) + 0.5) / targetSize) * 2.0 - 1.0;
             }
         `
@@ -26187,7 +26187,7 @@ ${e}`);
             @group(2) @binding(0) var uTexture: texture_2d<f32>;
             @group(2) @binding(1) var uSampler: sampler;
 
-         
+
         `
       ),
       main: (
@@ -26220,7 +26220,7 @@ ${e}`);
         `
         uniform sampler2D uTexture;
 
-         
+
         `
       ),
       main: (
@@ -35214,7 +35214,7 @@ ${e}`);
   function generateUpdateFunction(properties, dynamic) {
     const funcFragments = [];
     funcFragments.push(`
-      
+
         var index = 0;
 
         for (let i = 0; i < ps.length; ++i)
@@ -35740,7 +35740,7 @@ ${e}`);
             if(unclamped.x == coord.x && unclamped.y == coord.y)
             {
                 bias = -32.;
-            } 
+            }
 
             outColor = textureSampleBias(uTexture, uSampler, coord, bias);
         `
@@ -35755,7 +35755,7 @@ ${e}`);
         `
             uniform mat3 uTextureTransform;
             uniform vec4 uSizeAnchor;
-        
+
         `
       ),
       main: (
@@ -35785,9 +35785,9 @@ ${e}`);
         coord = (uMapCoord * vec3(coord, 1.0)).xy;
         vec2 unclamped = coord;
         coord = clamp(coord, uClampFrame.xy, uClampFrame.zw);
-        
+
         outColor = texture(uTexture, coord, unclamped == coord ? 0.0 : -32.0);// lod-bias very negative to force lod 0
-    
+
         `
       )
     }
@@ -36127,7 +36127,7 @@ ${e}`);
       ),
       main: (
         /* wgsl */
-        ` 
+        `
             outColor = vec4<f32>(calculateMSDFAlpha(outColor, localUniforms.uColor, localUniforms.uDistance));
         `
       )
@@ -36170,7 +36170,7 @@ ${e}`);
       ),
       main: (
         /* glsl */
-        ` 
+        `
             outColor = vec4(calculateMSDFAlpha(outColor, vColor, uDistance));
         `
       )
@@ -36184,12 +36184,12 @@ ${e}`);
         /* wgsl */
         `
             fn calculateMSDFAlpha(msdfColor:vec4<f32>, shapeColor:vec4<f32>, distance:f32) -> f32 {
-                
+
                 // MSDF
                 var median = msdfColor.r + msdfColor.g + msdfColor.b -
                     min(msdfColor.r, min(msdfColor.g, msdfColor.b)) -
                     max(msdfColor.r, max(msdfColor.g, msdfColor.b));
-            
+
                 // SDF
                 median = min(median, msdfColor.a);
 
@@ -36207,7 +36207,7 @@ ${e}`);
                 var coverage: f32 = pow(shapeColor.a * alpha, gamma);
 
                 return coverage;
-             
+
             }
         `
       )
@@ -36220,18 +36220,18 @@ ${e}`);
         /* glsl */
         `
             float calculateMSDFAlpha(vec4 msdfColor, vec4 shapeColor, float distance) {
-                
+
                 // MSDF
                 float median = msdfColor.r + msdfColor.g + msdfColor.b -
                                 min(msdfColor.r, min(msdfColor.g, msdfColor.b)) -
                                 max(msdfColor.r, max(msdfColor.g, msdfColor.b));
-               
+
                 // SDF
                 median = min(median, msdfColor.a);
-            
+
                 float screenPxDistance = distance * (median - 0.5);
                 float alpha = clamp(screenPxDistance + 0.5, 0.0, 1.0);
-           
+
                 if (median < 0.01) {
                     alpha = 0.0;
                 } else if (median > 0.99) {
@@ -36241,8 +36241,8 @@ ${e}`);
                 // Gamma correction for coverage-like alpha
                 float luma = dot(shapeColor.rgb, vec3(0.299, 0.587, 0.114));
                 float gamma = mix(1.0, 1.0 / 2.2, luma);
-                float coverage = pow(shapeColor.a * alpha, gamma);  
-              
+                float coverage = pow(shapeColor.a * alpha, gamma);
+
                 return coverage;
             }
         `
@@ -37254,27 +37254,27 @@ ${e}`);
 
   async function preload() {
     const assets = [
-      { alias: 'map', src: '/img/university.png' },
-      { alias: 'path', src: '/img/path.png' },
-      { alias: 'pathPoints', src: '/img/path-points.png' },
-      { alias: 'avatar', src: '/img/avatar.png' },
-      { alias: 'buttonChat', src: '/img/button-chat.png' },
-      { alias: 'buttonPost', src: '/img/button-post.png' },
-      { alias: 'buttonRating', src: '/img/button-rating.png' },
-      { alias: 'buttonUniversity', src: '/img/button-university.png' },
-      { alias: 'layoutFriendsBackground', src: '/img/layout-friends-background.png' },
-      { alias: 'arrowLeft', src: '/img/arrow-left.png' },
-      { alias: 'arrowRight', src: '/img/arrow-right.png' },
-      { alias: 'buttonBrown', src: '/img/button-brown.png' },
-      { alias: 'buttonPlus', src: '/img/button-plus.png' },
-      { alias: 'iconFriend', src: '/img/icon-friend.png' },
-      { alias: 'blueBackground', src: '/img/blue-background.png' },
-      { alias: 'buttonCross', src: '/img/button-cross.png' },
-      { alias: 'innerLayoutRating', src: '/img/inner-layout-rating.png' },
-      { alias: 'outerLayoutRating', src: '/img/outer-layout-rating.png' },
-      { alias: 'darkBlueBackground', src: '/img/dark-blue-background.png' },
-      { alias: 'titleRating', src: '/img/title-rating.png' },
-      { alias: 'titleTable', src: '/img/title-table.png' },
+      { alias: 'map', src: './img/university.png' },
+      { alias: 'path', src: './img/path.png' },
+      { alias: 'pathPoints', src: './img/path-points.png' },
+      { alias: 'avatar', src: './img/avatar.png' },
+      { alias: 'buttonChat', src: './img/button-chat.png' },
+      { alias: 'buttonPost', src: './img/button-post.png' },
+      { alias: 'buttonRating', src: './img/button-rating.png' },
+      { alias: 'buttonUniversity', src: './img/button-university.png' },
+      { alias: 'layoutFriendsBackground', src: './img/layout-friends-background.png' },
+      { alias: 'arrowLeft', src: './img/arrow-left.png' },
+      { alias: 'arrowRight', src: './img/arrow-right.png' },
+      { alias: 'buttonBrown', src: './img/button-brown.png' },
+      { alias: 'buttonPlus', src: './img/button-plus.png' },
+      { alias: 'iconFriend', src: './img/icon-friend.png' },
+      { alias: 'blueBackground', src: './img/blue-background.png' },
+      { alias: 'buttonCross', src: './img/button-cross.png' },
+      { alias: 'innerLayoutRating', src: './img/inner-layout-rating.png' },
+      { alias: 'outerLayoutRating', src: './img/outer-layout-rating.png' },
+      { alias: 'darkBlueBackground', src: './img/dark-blue-background.png' },
+      { alias: 'titleRating', src: './img/title-rating.png' },
+      { alias: 'titleTable', src: './img/title-table.png' },
     ];
     await Assets.load(assets);
   }
@@ -37802,7 +37802,7 @@ ${e}`);
 
     outerLayout.addChild(contactsListContainer.outerContainer, buttonCallChat);
     buttonCallChat.x = 539;
-    
+
     return {
       outerLayout,
       contactList: contactsListContainer.slider,
@@ -37929,7 +37929,7 @@ ${e}`);
         points: '1000',
       },
     ],
-    
+
     friends: [
       {
         id: '9',
