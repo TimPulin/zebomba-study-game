@@ -1,3 +1,4 @@
+// note test
 export function addSpriteToEnd(container, sprite, padding = 0) {
   const lastChild = container.children[container.children.length - 1];
 
